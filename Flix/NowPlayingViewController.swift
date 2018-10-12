@@ -105,9 +105,9 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
     
     // MARK: - SearchBar delegate methods
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        <#code#>
-    }
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        <#code#>
+//    }
     
     /*
     // MARK: - Navigation
