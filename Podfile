@@ -7,4 +7,5 @@ target 'Flix' do
 
   # Pods for Flix
   pod 'AFNetworking', '~> 3.0'
+  pod 'AlamofireImage', '~> 3.4'
 end

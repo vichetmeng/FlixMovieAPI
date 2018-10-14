@@ -21,6 +21,8 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
+    var selectedMovie:[String:Any] = [:]
+    
     
     var refreshControl: UIRefreshControl!
     
@@ -66,6 +68,17 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
         task.resume()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier {
+            switch(identifier) {
+            case "ShowMovieDetail":
+                if let dvc = segue.destination as? MovieDetailViewController {
+                    dvc.movie = self.selectedMovie
+                }
+            default: break
+            }
+        }
+    }
     
     // MARK: - TableView delegate methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -101,6 +114,16 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
           },
           failure: nil)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let movie = movies[indexPath.row]
+        selectedMovie["title"] = movie["title"]
+        selectedMovie["release_date"] = movie["release_date"]
+        selectedMovie["poster_path"] = movie["poster_path"]
+        selectedMovie["backdrop_path"] = movie["backdrop_path"]
+        selectedMovie["overview"] = movie["overview"]
+        performSegue(withIdentifier: "ShowMovieDetail", sender: self)
     }
     
     // MARK: - SearchBar delegate methods
