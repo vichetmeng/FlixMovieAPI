@@ -10,11 +10,14 @@ import UIKit
 import AFNetworking
 
 class NowPlayingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+    
     @IBOutlet weak var searchBar: UISearchBar! {
         didSet {
             searchBar.delegate = self
         }
     }
+    
+    
     var movies:[[String:Any]] = [] {
         didSet {
             tableView.reloadData()
@@ -46,7 +49,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
     
     func fetchData() {
         let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
-        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
+        let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 10)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
         let task = session.dataTask(with: request) { (data, response, error) in
             // This will run when the network request returns
@@ -123,6 +126,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
         selectedMovie["poster_path"] = movie["poster_path"]
         selectedMovie["backdrop_path"] = movie["backdrop_path"]
         selectedMovie["overview"] = movie["overview"]
+        selectedMovie["id"] = movie["id"]
         performSegue(withIdentifier: "ShowMovieDetail", sender: self)
     }
     

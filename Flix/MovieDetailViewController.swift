@@ -39,7 +39,23 @@ class MovieDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifer = segue.identifier {
+            switch(identifer) {
+            case "ShowTrailer":
+                if let dvc = segue.destination as? MovieTrailerViewController {
+                    if let movie = movie {
+                        let id = movie["id"] as? Int
+                        dvc.movieId = id
+                        print(id!)
+                    }
+                }
+            default:
+                break
+            }
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

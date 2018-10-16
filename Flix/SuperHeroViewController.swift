@@ -25,12 +25,12 @@ class SuperHeroViewController: UIViewController, UICollectionViewDataSource, UIC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        let cellsPerLine = 4
-        let interItemSpacing = layout.minimumInteritemSpacing * CGFloat(cellsPerLine - 1)
-        let frame = collectionView.frame
-        let width = frame.size.width / CGFloat(cellsPerLine) - interItemSpacing
-        layout.itemSize = CGSize(width: width, height: width*3/2)
+//        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+//        let cellsPerLine = 4
+//        let interItemSpacing = layout.minimumInteritemSpacing * CGFloat(cellsPerLine - 1)
+//        let frame = collectionView.frame
+//        let width = frame.size.width / CGFloat(cellsPerLine) - interItemSpacing
+//        layout.itemSize = CGSize(width: width, height: width*3/2)
         fetchData()
     }
     func fetchData() {
@@ -57,6 +57,11 @@ class SuperHeroViewController: UIViewController, UICollectionViewDataSource, UIC
         task.resume()
     }
     
+    @IBAction func posterTapped(_ sender: UITapGestureRecognizer) {
+        
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch(identifier) {
@@ -64,6 +69,7 @@ class SuperHeroViewController: UIViewController, UICollectionViewDataSource, UIC
                 if let dvc = segue.destination as? MovieDetailViewController {
                     dvc.movie = self.selectedMovie
                 }
+            
             default: break
             }
         }
@@ -92,6 +98,7 @@ class SuperHeroViewController: UIViewController, UICollectionViewDataSource, UIC
         selectedMovie["poster_path"] = movie["poster_path"]
         selectedMovie["backdrop_path"] = movie["backdrop_path"]
         selectedMovie["overview"] = movie["overview"]
+        selectedMovie["id"] = movie["id"]
         performSegue(withIdentifier: "ShowMovieDetail", sender: self)
     }
     
