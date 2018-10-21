@@ -40,6 +40,8 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(NowPlayingViewController.didPullToRefresh(_:)), for: .valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 50
         fetchData()
     }
     
@@ -128,6 +130,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UITable
         selectedMovie["overview"] = movie["overview"]
         selectedMovie["id"] = movie["id"]
         performSegue(withIdentifier: "ShowMovieDetail", sender: self)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: - SearchBar delegate methods
